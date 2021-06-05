@@ -1,5 +1,0 @@
-{
-    "mongoURI":"mongodb+srv://blogApp:AppBlog@cluster0.umh6v.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-    "jwtSecret": "myscrettoken",
-    "githubToken": "1ffaa339c0fa80c759e307d7c3d8cd57b6479ac1"
-}
