@@ -41,7 +41,7 @@ const EditProfile = ({
       facebook: loading || !profile.social ? "" : profile.facebook,
       linkedin: loading || !profile.social ? "" : profile.linkedin,
     });
-  }, [loading]);
+  }, [loading, getCurrentProfile]);
 
   const {
     status,

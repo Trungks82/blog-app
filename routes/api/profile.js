@@ -5,6 +5,7 @@ const config = require("config");
 const router = express.Router();
 const auth = require("../../middleware/auth");
 const { check, validationResult } = require("express-validator");
+const checkObjectId = require("../../middleware/checkObjectId");
 
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
@@ -124,24 +125,25 @@ router.get("/", async (req, res) => {
 // @description Get profile by ID
 // @access      Public
 
-router.get("/user/:user_id", async (req, res) => {
-  try {
-    const profile = await Profile.findOne({
-      user: req.params.user_id,
-    }).populate("user", ["name", "avatar"]);
+router.get(
+  "/user/:user_id",
+  checkObjectId("user_id"),
+  async ({ params: { user_id } }, res) => {
+    try {
+      const profile = await Profile.findOne({
+        user: user_id,
+      }).populate("user", ["name", "avatar"]);
 
-    if (!profile)
-      return res.status(400).json({ msg: "There is no such profile" });
+      if (!profile)
+        return res.status(400).json({ msg: "There is no such profile" });
 
-    res.json(profile);
-  } catch (err) {
-    console.error(err.message);
-    if (err.kind == "ObjectID") {
-      return res.status(400).json({ msg: "There is no such profile" });
+      return res.json(profile);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server error");
     }
-    res.status(500).send("Server error");
   }
-});
+);
 
 // @route       DELETE api/profile
 // @description Delete all profiles

@@ -246,7 +246,7 @@ export const deleteAccount = () => async (dispatch) => {
     window.confirm("Are you sure? This will be permanently delete the account!")
   )
     try {
-      const res = await axios.delete(`/api/profile`);
+      await axios.delete(`/api/profile`);
 
       dispatch({
         type: CLEAR_PROFILE,
