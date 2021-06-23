@@ -1,6 +1,5 @@
 const express = require("express");
 const axios = require("axios");
-const request = require("request");
 const config = require("config");
 const router = express.Router();
 const auth = require("../../middleware/auth");
@@ -10,6 +9,7 @@ const checkObjectId = require("../../middleware/checkObjectId");
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
 const Post = require("../../models/Post");
+
 // @route       GET api/profile/me
 // @description Get current users profile
 // @access      Private
@@ -38,8 +38,8 @@ router.get("/me", auth, async (req, res) => {
 router.post(
   "/",
   auth,
-  check("status", "Status is required").not().isEmpty(),
-  check("skills", "Skills is required").not().isEmpty(),
+  check("status", "Status is required").notEmpty(),
+  check("skills", "Skills is required").notEmpty(),
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -53,9 +53,7 @@ router.post(
       bio,
       status,
       githubusername,
-      youtube,
       twitter,
-      instagram,
       linkedin,
       facebook,
     } = req.body;
@@ -74,11 +72,9 @@ router.post(
 
     //Social object
     profileFields.social = {};
-    if (youtube) profileFields.social.youtube = youtube;
     if (twitter) profileFields.social.twitter = twitter;
     if (facebook) profileFields.social.facebook = facebook;
     if (linkedin) profileFields.social.linkedin = linkedin;
-    if (instagram) profileFields.social.instagram = instagram;
     if (githubusername) profileFields.social.githubusername = githubusername;
 
     try {
@@ -116,7 +112,7 @@ router.get("/", async (req, res) => {
     const profiles = await Profile.find().populate("user", ["name", "avatar"]);
     res.json(profiles);
   } catch (error) {
-    console.error(err.message);
+    console.error(error.message);
     res.status(500).send("Server Error");
   }
 });
