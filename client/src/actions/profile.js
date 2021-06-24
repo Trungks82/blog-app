@@ -9,6 +9,7 @@ import {
   CLEAR_PROFILE,
   GET_PROFILES,
   GET_REPOS,
+  NO_REPOS,
 } from "./types";
 
 export const getCurrentProfile = () => async (dispatch) => {
@@ -84,11 +85,7 @@ export const getGithubRepos = (username) => async (dispatch) => {
     });
   } catch (error) {
     dispatch({
-      type: PROFILE_ERROR,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status,
-      },
+      type: NO_REPOS,
     });
   }
 };
@@ -112,7 +109,7 @@ export const createProfile =
 
       dispatch(setAlert(edit ? "Profile Updated" : "Profile Created"));
 
-      if (!edit) {
+      if (edit) {
         history.push("/profiles");
       }
     } catch (error) {
