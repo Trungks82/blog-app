@@ -21,14 +21,14 @@ const PostItem = ({
         Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
       </p>
       <button type='button' className='btn btn-light'>
-        <i className='fas fa-thumbs-up'></i>
+        <i className='fas fa-thumbs-up' />
         {""}
         <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
       </button>
       <button type='button' className='btn btn-light'>
         <i className='fas fa-thumbs-down'></i>
       </button>
-      <Link to={`/posts/${_id}`} className='btn btn-primary'>
+      <Link to={`/post/${_id}`} className='btn btn-primary'>
         Discussion{" "}
         {comments.length > 0 && (
           <span className='comment-count'>{comments.length}</span>
