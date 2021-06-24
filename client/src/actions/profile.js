@@ -20,6 +20,7 @@ export const getCurrentProfile = () => async (dispatch) => {
       payload: res.data,
     });
   } catch (error) {
+    dispatch({ type: CLEAR_PROFILE });
     dispatch({
       type: PROFILE_ERROR,
       payload: {
@@ -112,7 +113,7 @@ export const createProfile =
       dispatch(setAlert(edit ? "Profile Updated" : "Profile Created"));
 
       if (!edit) {
-        history.push("/dashboard");
+        history.push("/profiles");
       }
     } catch (error) {
       const errors = error.response.data.errors;
