@@ -4,12 +4,12 @@ const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/auth");
 
 const Post = require("../../models/Post");
-const Profile = require("../../models/Profile");
 const User = require("../../models/User");
+const checkObjectId = require("../../middleware/checkObjectId");
 
-// @route POST api/post
+// @route       POST api/post
 // @description Create a post
-// @access Private
+// @access      Private
 
 router.post(
   "/",
@@ -41,8 +41,8 @@ router.post(
   }
 );
 
-// @route       GET api/post
-// @description Get all post
+// @route       GET api/posts
+// @description Get all posts
 // @access      Private
 
 router.get("/", auth, async (req, res) => {
@@ -59,7 +59,7 @@ router.get("/", auth, async (req, res) => {
 // @description Get post by ID
 // @access      Private
 
-router.get("/:id", auth, async (req, res) => {
+router.get("/:id", auth, checkObjectId("id"), async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
 
