@@ -10,4 +10,5 @@ The dependencies in this app:
 6. jsonwebtoken(JWT)
 7. mongoose :: acts like a middle-man between database and website
 8. request :: helps us make HTTP request to other APIs
-
+9. nodemon :: watches over the server
+10. concurrently :: allows us to run both backend and frontend at the same time
